@@ -1,5 +1,5 @@
 import { assert } from 'chai'
-import { Payload } from '../src/index'
+import { Envelope, Payload } from '../src/index'
 
 const rawtx = new Uint8Array([1, 0, 0, 0, 0, 0, 0, 0, 0, 0])
 const cborPayload = new Uint8Array([
@@ -62,6 +62,16 @@ describe('Payload#encode()', () => {
     const payload = Payload.build({ data: { rawtx }})
     const buf = payload.encode()
     assert.deepEqual(new Uint8Array(buf), cborPayload)
+  })
+})
+
+
+describe('Payload#encodeEnvelope()', () => {
+  it('wraps encoded payload into en Envelope', () => {
+    const payload = Payload.build({ data: { rawtx }})
+    const env = payload.encodeEnvelope()
+    assert.instanceOf(env, Envelope)
+    assert.deepEqual(new Uint8Array(env.payload), cborPayload)
   })
 })
 

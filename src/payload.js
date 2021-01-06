@@ -1,5 +1,6 @@
 import { Buffer } from 'buffer'
 import { CBOR } from 'cbor-redux'
+import Envelope from './envelope'
 
 /**
  * Request payload class, implements BRFC `c9a2975b3d19` ([CBOR Tx Payload](https://github.com/libitx/txpost/blob/master/brfc-specs/cbor-tx-payload.md)).
@@ -63,6 +64,16 @@ class Payload {
   encode() {
     const json = this.toJSON()
     return CBOR.encode(json)
+  }
+
+  /**
+   * Encodes the Payload as a CBOR buffer and wraps it within an Envelope.
+   * 
+   * @return {Envelope}
+   */
+  encodeEnvelope() {
+    const payload = this.encode()
+    return Envelope.build({ payload })
   }
 
   /**
