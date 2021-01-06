@@ -1,6 +1,6 @@
 {
   "name": "txpost",
-  "version": "0.1.0-beta.1",
+  "version": "0.1.0-beta.2",
   "description": "Encode Bitcoin transactions and data in a concise and efficient binary serialisation format.",
   "keywords": [
     "bitcoin",
